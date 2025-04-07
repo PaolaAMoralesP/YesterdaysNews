@@ -8,6 +8,7 @@ public class YesterdaysnewsApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(YesterdaysnewsApplication.class, args);
+		System.out.println("Yesterdaysnews application started successfully!");
 	}
 
 }

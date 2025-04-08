@@ -8,7 +8,16 @@ public class User {
     private String username;
     private String emailAddress;
 
-public User(){}
+        // Plantilla - a adaptar a las necesidades del proyecto
+        public User(int id, String username, String emailAddress){
+            this.id = id;
+            this.username = username;
+            this.emailAddress = emailAddress;
+        }
+
+public User(){
+    
+}
     public int getId() {
         return this.id;
     }

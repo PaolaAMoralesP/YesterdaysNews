@@ -9,10 +9,12 @@ public class Article {
     private String title;
     private String content;
     private String publicationDate;
+    // usuario aparece aki
+    // categoria aparece aki
 
     // Constructor de article
     // Plantilla - a adaptar a las necesidades del proyecto
-    public Article(int id, String title, String content, String publicationDate){
+    public Article(int id, String title, String content, String publicationDate) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -20,9 +22,10 @@ public class Article {
     }
 
     // Getters and setters
-public Article(){
-    // A propósito!
-}
+    public Article() {
+        // A propósito!
+    }
+
     public int getId() {
         return this.id;
     }

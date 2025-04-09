@@ -8,16 +8,19 @@ public class User {
     private String username;
     private String emailAddress;
 
-        // Plantilla - a adaptar a las necesidades del proyecto
-        public User(int id, String username, String emailAddress){
-            this.id = id;
-            this.username = username;
-            this.emailAddress = emailAddress;
-        }
+    // Plantilla - a adaptar a las necesidades del proyecto
+    public User(int id, String username, String emailAddress) {
+        this.id = id;
+        this.username = username;
+        this.emailAddress = emailAddress;
+    }
 
-public User(){
-    
-}
+    // Spring Boot autogenera este constructor por defecto utilizando los getters y
+    // setters en @RequestBody
+    public User() {
+
+    }
+
     public int getId() {
         return this.id;
     }
@@ -42,4 +45,3 @@ public User(){
         this.emailAddress = emailAddress;
     }
 }
-

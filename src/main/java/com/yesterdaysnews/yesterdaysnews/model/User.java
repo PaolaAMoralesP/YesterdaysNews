@@ -1,12 +1,34 @@
 package com.yesterdaysnews.yesterdaysnews.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.GeneratedValue;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
+@Entity
+@Table(name = "users")
+
 
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+   
+    @NotBlank(message = "Username is required")
+    @Size(min=3, max=20, message = "Username must have min 3 and max 20 characters")
+    @Pattern(regexp = "[a-zA-Z0-9_.-]+$", message = "Only letters and numbers are allowed")
     private String username;
+
+    @NotBlank(message = "Email address is required")
+    @Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}",message = "Must have email address format")
     private String emailAddress;
+    
 
     // Plantilla - a adaptar a las necesidades del proyecto
     public User(int id, String username, String emailAddress) {

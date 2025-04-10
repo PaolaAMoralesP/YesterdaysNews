@@ -28,8 +28,6 @@ public class User {
     @NotBlank(message = "Email address is required")
     @Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}",message = "Must have email address format")
     private String emailAddress;
-    
-
     // Plantilla - a adaptar a las necesidades del proyecto
     public User(int id, String username, String emailAddress) {
         this.id = id;

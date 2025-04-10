@@ -22,7 +22,19 @@ public class ArticleController {
     @PostMapping
     public ResponseEntity<Object> createArticle(@Valid @RequestBody Article article, @RequestParam Integer userId) {
         return articleService.createArticle(article, userId);
-    }
+
+   
+    // @GetMapping
+    // public ResponseEntity<Object> getAllArticles(@) {
+    //     return ResponseEntity.ok(articleService.getAllArticles());
+    // }
+
+    // Agregar
+    // @DeleteMapping    
+    // public ResponseEntity<Object> deleteArticleById(@PathVariable Integer id) {
+    //     return articleService.deleteArticleById(id);
+    // }
+}
 }
 
 

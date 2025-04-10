@@ -5,8 +5,10 @@
     import com.yesterdaysnews.yesterdaysnews.model.User;
     import com.yesterdaysnews.yesterdaysnews.repository.ArticleRepository;
     import com.yesterdaysnews.yesterdaysnews.repository.UserRepository;
-    
-    import org.springframework.http.HttpStatus;
+
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
     import org.springframework.http.ResponseEntity;
     import org.springframework.stereotype.Service;
     
@@ -28,11 +30,31 @@
             if (user == null) {
                 return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
             }
+
     
             article.setUser(user);
     
             articleRepository.save(article);
     
             return new ResponseEntity<>(article, HttpStatus.CREATED);
-        } 
-}
+
+        }
+
+        public ResponseEntity<Object> getAllArticles() {
+            List<Article> articles = articleRepository.findAll();
+            return new ResponseEntity<>(articles, HttpStatus.OK);
+        }
+
+       
+        }
+    
+
+
+                // pendiente, se deb hacer eliminacion en cascada
+        // public ResponseEntity<Object> deleteArticleById(Integer id) {
+        //     if (articleRepository.existsById(id)) {
+        //         articleRepository.deleteById(id);
+        //         return new ResponseEntity<>("Article deleted successfully", HttpStatus.OK);
+        //     } else {
+        //         return new ResponseEntity<>("Article not found", HttpStatus.NOT_FOUND);
+        //     }

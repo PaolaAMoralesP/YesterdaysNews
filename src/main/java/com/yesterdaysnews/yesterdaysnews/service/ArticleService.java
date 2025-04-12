@@ -5,8 +5,10 @@
     import com.yesterdaysnews.yesterdaysnews.model.User;
     import com.yesterdaysnews.yesterdaysnews.repository.ArticleRepository;
     import com.yesterdaysnews.yesterdaysnews.repository.UserRepository;
-    
-    import org.springframework.http.HttpStatus;
+
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
     import org.springframework.http.ResponseEntity;
     import org.springframework.stereotype.Service;
     
@@ -35,4 +37,8 @@
     
             return new ResponseEntity<>(article, HttpStatus.CREATED);
         } 
+
+        public List<Article> getAllArticles(){
+            return articleRepository.findAll();
+        }
 }

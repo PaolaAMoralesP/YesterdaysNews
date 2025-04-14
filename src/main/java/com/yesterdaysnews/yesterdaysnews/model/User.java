@@ -1,8 +1,14 @@
 package com.yesterdaysnews.yesterdaysnews.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.validation.constraints.Email;
@@ -28,6 +34,11 @@ public class User {
     @NotBlank(message = "Email address is required")
     @Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}",message = "Must have email address format")
     private String emailAddress;
+
+    // Preparar aquí la relación con Article
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Article> articles = new ArrayList<>();
+
     // Plantilla - a adaptar a las necesidades del proyecto
     public User(int id, String username, String emailAddress) {
         this.id = id;

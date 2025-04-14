@@ -28,10 +28,11 @@ public class Article {
 
 
     // usuario aparece aki
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
     // categoria aparece aki
+    // todavia falta categoria
 
     // Constructor de article
     // Plantilla - a adaptar a las necesidades del proyecto

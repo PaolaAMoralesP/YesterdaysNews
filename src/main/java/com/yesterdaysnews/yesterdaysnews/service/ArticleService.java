@@ -41,4 +41,13 @@ import org.springframework.http.HttpStatus;
         public List<Article> getAllArticles(){
             return articleRepository.findAll();
         }
+
+        public ResponseEntity<String> deleteArticle(int id) {
+            if (!articleRepository.existsById(id)) {
+                return new ResponseEntity<>("No article found with this ID", HttpStatus.NOT_FOUND);
+            }
+            articleRepository.deleteById(id);
+                return new ResponseEntity<>("Article " + id + " deleted successfully", HttpStatus.OK);
+        }
+        
 }

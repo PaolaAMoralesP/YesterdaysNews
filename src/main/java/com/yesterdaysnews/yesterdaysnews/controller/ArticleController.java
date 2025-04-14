@@ -11,6 +11,8 @@ import com.yesterdaysnews.yesterdaysnews.service.ArticleService;
 import com.yesterdaysnews.yesterdaysnews.model.Article;
 
 import jakarta.validation.Valid;
+// import org.springframework.web.bind.annotation.GetMapping;
+// import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
@@ -24,8 +26,8 @@ public class ArticleController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> createArticle(@Valid @RequestBody Article article, @RequestParam Integer userId) {
-        return articleService.createArticle(article, userId);
+    public ResponseEntity<Article> createArticle(@Valid @RequestBody Article article, @RequestParam Integer userId) {
+        return new ResponseEntity<> (articleService.createArticle(article, userId), HttpStatus.CREATED);
     }
 
     @GetMapping

@@ -1,15 +1,15 @@
-
     package com.yesterdaysnews.yesterdaysnews.service;
 
+    import com.yesterdaysnews.UserNotFoundException;
     import com.yesterdaysnews.yesterdaysnews.model.Article;
     import com.yesterdaysnews.yesterdaysnews.model.User;
     import com.yesterdaysnews.yesterdaysnews.repository.ArticleRepository;
     import com.yesterdaysnews.yesterdaysnews.repository.UserRepository;
 
-import java.util.List;
 
-import org.springframework.http.HttpStatus;
-    import org.springframework.http.ResponseEntity;
+    import java.util.List;
+
+
     import org.springframework.stereotype.Service;
     
     @Service
@@ -23,19 +23,14 @@ import org.springframework.http.HttpStatus;
             this.userRepository = userRepository;
         }
     
-        public ResponseEntity<Object> createArticle(Article article, Integer userId) {
+        public Article createArticle(Article article, Integer userId) {
             // Look up the user
-            User user = userRepository.findById(userId).orElse(null);
-    
-            if (user == null) {
-                return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
-            }
+            User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
     
             article.setUser(user);
-    
             articleRepository.save(article);
     
-            return new ResponseEntity<>(article, HttpStatus.CREATED);
+            return article;
         } 
 
         public List<Article> getAllArticles(){

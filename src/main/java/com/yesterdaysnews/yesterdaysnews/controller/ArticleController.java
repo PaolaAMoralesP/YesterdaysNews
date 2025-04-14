@@ -35,10 +35,13 @@ public class ArticleController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteArticle(@PathVariable int id) {
-    return articleService.deleteArticle(id);
-}
-
-
+        boolean deleted = articleService.deleteArticleById(id);
+        if (!deleted) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                                 .body("No article found with ID " + id);
+        }
+        return ResponseEntity.ok("Article " + id + " deleted successfully");
+    }
 }
 
 

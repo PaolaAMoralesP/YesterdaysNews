@@ -18,5 +18,4 @@ public class YesterdaysnewsApplication {
 		SpringApplication.run(YesterdaysnewsApplication.class, args);
 		System.out.println("Yesterdaysnews application started successfully!");
 	}
-
 }

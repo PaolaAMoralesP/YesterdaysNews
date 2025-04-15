@@ -39,6 +39,11 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Article> articles = new ArrayList<>();
 
+    //Crear getArticles para Delete
+    public List<Article> getArticles() {
+        return articles;
+    }
+
     // Plantilla - a adaptar a las necesidades del proyecto
     public User(int id, String username, String emailAddress) {
         this.id = id;

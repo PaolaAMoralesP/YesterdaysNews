@@ -1,6 +1,9 @@
 package com.yesterdaysnews.yesterdaysnews.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -30,6 +33,7 @@ public class Article {
     // usuario aparece aki
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnoreProperties("articles")
     private User user;
     // categoria aparece aki
     // todavia falta categoria

@@ -3,6 +3,9 @@ package com.yesterdaysnews.yesterdaysnews.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 
 import jakarta.persistence.Entity;
@@ -37,6 +40,7 @@ public class User {
 
     // Preparar aquí la relación con Article
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("user")
     private List<Article> articles = new ArrayList<>();
 
     //Crear getArticles para Delete

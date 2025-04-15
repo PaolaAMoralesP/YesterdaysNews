@@ -7,6 +7,7 @@ import com.yesterdaysnews.yesterdaysnews.repository.ArticleRepository;
 import com.yesterdaysnews.yesterdaysnews.repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -33,6 +34,24 @@ public class ArticleService {
 
     public List<Article> getAllArticles() {
         return articleRepository.findAll();
+    }
+
+    public Optional<Article> getArticleById(int id) {
+        return articleRepository.findById(id);
+    }
+
+    public Article updateArticle(Article updatedArticle) {
+        int articleId = updatedArticle.getId();
+        Optional<Article> existingArticle = articleRepository.findById(articleId);
+
+        if (existingArticle.isPresent()) {
+            Article articleToUpdate = existingArticle.get();
+            articleToUpdate.setContent(updatedArticle.getContent());
+
+            return articleRepository.save(articleToUpdate);
+        } else {
+            return null; // puede cambiarse a una Excepcion
+        }
     }
 
     public boolean deleteArticleById(int id) {

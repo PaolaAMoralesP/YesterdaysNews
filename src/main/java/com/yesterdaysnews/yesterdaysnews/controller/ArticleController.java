@@ -11,6 +11,7 @@ import com.yesterdaysnews.yesterdaysnews.service.ArticleService;
 import com.yesterdaysnews.yesterdaysnews.model.Article;
 
 import jakarta.validation.Valid;
+import java.util.Optional;
 // import org.springframework.web.bind.annotation.GetMapping;
 // import org.springframework.web.bind.annotation.RequestParam;
 
@@ -33,6 +34,29 @@ public class ArticleController {
     @GetMapping
     public ResponseEntity<List<Article>> getAllArticles() {
         return new ResponseEntity<>(articleService.getAllArticles(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Article> getArticleById(@PathVariable int id) {
+        Optional<Article> article = articleService.getArticleById(id);
+        if (article.isPresent()) {
+            return new ResponseEntity<>(article.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Article> updateArticle(@PathVariable int id, @Valid @RequestBody Article updatedArticle) {
+        Optional<Article> existingArticle = articleService.getArticleById(id);
+
+        if (existingArticle.isPresent()) {
+            updatedArticle.setId(id);
+            Article updated = articleService.updateArticle(updatedArticle);
+            return new ResponseEntity<>(updated, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @DeleteMapping("/{id}")

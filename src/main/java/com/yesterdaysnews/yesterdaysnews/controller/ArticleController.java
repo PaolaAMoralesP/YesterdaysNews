@@ -46,6 +46,19 @@ public class ArticleController {
         }
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Article> updateArticle(@PathVariable int id, @Valid @RequestBody Article updatedArticle) {
+        Optional<Article> existingArticle = articleService.getArticleById(id);
+
+        if (existingArticle.isPresent()) {
+            updatedArticle.setId(id);
+            Article updated = articleService.updateArticle(updatedArticle);
+            return new ResponseEntity<>(updated, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteArticle(@PathVariable int id) {
         boolean deleted = articleService.deleteArticleById(id);

@@ -8,6 +8,7 @@
 
 
     import java.util.List;
+    import java.util.Optional;
 
 
     import org.springframework.stereotype.Service;
@@ -35,6 +36,10 @@
 
         public List<Article> getAllArticles(){
             return articleRepository.findAll();
+        }
+
+        public Optional<Article> getArticleById(int id) {
+            return articleRepository.findById(id);
         }
 
         public boolean deleteArticleById(int id) {

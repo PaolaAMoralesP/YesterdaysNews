@@ -87,6 +87,20 @@ public class ArticleControllerTest {
     }
 
     @Test
+    void testFindArticleByIdNotFound() {
+        // Arrange
+        Integer articleId = 999;
+        when(articleService.getArticleById(articleId)).thenReturn(Optional.empty()); // Simulate article not found
+
+        // Act
+        ResponseEntity<Article> response = articleController.findArticleById(articleId);
+
+        // Assert
+        assertEquals(404, response.getStatusCode().value()); // Verify status code is 404 Not Found
+        verify(articleService, times(1)).getArticleById(articleId); // Verify service was called exactly once
+    }
+
+    @Test
     void testFindArticleById() {
         // Arrange
         Integer articleId = 1;
@@ -96,7 +110,7 @@ public class ArticleControllerTest {
         article.setContent("This is a test article.");
 
         when(articleService.getArticleById(articleId)).thenReturn(Optional.of(article)); // Simula el comportamiento del servicio
-
+        
         // Act
         ResponseEntity<Article> response = articleController.findArticleById(articleId);
 

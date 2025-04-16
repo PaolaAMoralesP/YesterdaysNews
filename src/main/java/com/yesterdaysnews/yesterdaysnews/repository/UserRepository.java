@@ -6,4 +6,5 @@ import com.yesterdaysnews.yesterdaysnews.model.User;
 
 public interface UserRepository extends JpaRepository<User,Integer> {
     User findUserById(Integer id);
+    boolean existsByEmailAddress(String emailAddress);
 }

@@ -24,7 +24,7 @@ public class Article {
     @NotBlank(message = "Content is required")
     @Size(min=50, max=2000, message = "Content must have min 50 and max 2000 characters")
     private String content;
-
+    
     @Column(name = "publicationDate")
     private String publicationDate;
 

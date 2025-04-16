@@ -15,7 +15,12 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+
+
     public User createUser(User user) {
+        if (userRepository.existsByEmailAddress(user.getEmailAddress())) {
+            throw new IllegalArgumentException("There is already an account associated with this email address.");
+        }
         return userRepository.save(user);
     }
 

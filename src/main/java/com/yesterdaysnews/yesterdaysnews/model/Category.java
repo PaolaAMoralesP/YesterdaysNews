@@ -32,10 +32,6 @@ public class Category {
         this.type = type;
     }
 
-    public Category() {
-
-    }
-
     public int getId() {
         return this.id;
     }

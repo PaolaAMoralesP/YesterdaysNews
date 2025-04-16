@@ -25,6 +25,9 @@ public class Article {
     @Column(length = 5000)
     private String content;
 
+    @Column(name = "publicationDate")
+    private String publicationDate;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -38,9 +41,11 @@ public class Article {
 
     // Constructor sin el campo 'id' para evitar problemas con la generación
     // automática
-    public Article(String title, String content, User user) {
+    public Article(int id, String title, String content, String publicationDate, User user) {
+        this.id = id;
         this.title = title;
         this.content = content;
+        this.publicationDate = publicationDate;
         this.user = user;
     }
 
@@ -63,6 +68,14 @@ public class Article {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getPublicationDate() {
+        return this.publicationDate;
+    }
+
+    public void setPublicationDate(String publicationDate) {
+        this.publicationDate = publicationDate;
     }
 
     public User getUser() {

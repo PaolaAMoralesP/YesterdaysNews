@@ -8,14 +8,50 @@ import io.github.cdimascio.dotenv.Dotenv;
 public class YesterdaysnewsApplication {
 
 	public static void main(String[] args) {
-		// Load .env file
-		Dotenv dotenv = Dotenv.configure().load();
-		System.setProperty("SPRING_DATASOURCE_URL", dotenv.get("SPRING_DATASOURCE_URL"));
-		System.setProperty("SPRING_DATASOURCE_USERNAME", dotenv.get("SPRING_DATASOURCE_USERNAME"));
-		System.setProperty("SPRING_DATASOURCE_PASSWORD", dotenv.get("SPRING_DATASOURCE_PASSWORD"));
-		System.setProperty("SPRING_DATASOURCE_DRIVER_CLASS_NAME", dotenv.get("SPRING_DATASOURCE_DRIVER_CLASS_NAME"));
+		boolean hasErrors = false;
 
+		try {
+			// Load .env file
+			Dotenv dotenv = Dotenv.configure().load();
+
+			// Check required environment variables
+			checkEnvVariable(dotenv, "SPRING_DATASOURCE_URL");
+			checkEnvVariable(dotenv, "SPRING_DATASOURCE_USERNAME");
+			checkEnvVariable(dotenv, "SPRING_DATASOURCE_PASSWORD");
+			checkEnvVariable(dotenv, "SPRING_DATASOURCE_DRIVER_CLASS_NAME");
+
+			// Set system properties
+			System.setProperty("SPRING_DATASOURCE_URL", dotenv.get("SPRING_DATASOURCE_URL"));
+			System.setProperty("SPRING_DATASOURCE_USERNAME", dotenv.get("SPRING_DATASOURCE_USERNAME"));
+			System.setProperty("SPRING_DATASOURCE_PASSWORD", dotenv.get("SPRING_DATASOURCE_PASSWORD"));
+			System.setProperty("SPRING_DATASOURCE_DRIVER_CLASS_NAME",
+					dotenv.get("SPRING_DATASOURCE_DRIVER_CLASS_NAME"));
+
+			// Print database connection message in blue
+			System.out.println("\u001B[34m>>>>>>>>>>Database connection properties loaded successfully.\u001B[0m");
+
+		} catch (Exception e) {
+			// Print warning message in orange
+			System.err.println("\u001B[33m>>>>>>>>>>Warning: Issue detected while starting Yesterdaysnews application: "
+					+ e.getMessage() + "\u001B[0m");
+			e.printStackTrace();
+			hasErrors = true; // Mark that there was an issue
+		}
+
+		// Start the application
 		SpringApplication.run(YesterdaysnewsApplication.class, args);
-		System.out.println("Yesterdaysnews application started successfully!");
+
+		// Print final status message
+		if (hasErrors) {
+			System.out.println("\u001B[33m>>>>>>>>>>Yesterdaysnews application started with warnings.\u001B[0m");
+		} else {
+			System.out.println("\u001B[32m>>>>>>>>>>Yesterdaysnews application started successfully!\u001B[0m");
+		}
+	}
+
+	private static void checkEnvVariable(Dotenv dotenv, String key) {
+		if (dotenv.get(key) == null || dotenv.get(key).isEmpty()) {
+			throw new IllegalArgumentException(">>>>>>>>>>Missing required environment variable: " + key);
+		}
 	}
 }

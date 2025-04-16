@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+// import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 
@@ -22,20 +22,19 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Table(name = "users")
 
-
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-   
+
     @NotBlank(message = "Username is required")
-    @Size(min=3, max=20, message = "Username must have min 3 and max 20 characters")
+    @Size(min = 3, max = 20, message = "Username must have min 3 and max 20 characters")
     @Pattern(regexp = "[a-zA-Z0-9_.-]+$", message = "Only letters and numbers are allowed")
     private String username;
 
     @NotBlank(message = "Email address is required")
-    @Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}",message = "Must have email address format")
+    @Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}", message = "Must have email address format")
     private String emailAddress;
 
     // Preparar aquí la relación con Article
@@ -43,7 +42,7 @@ public class User {
     @JsonIgnoreProperties("user")
     private List<Article> articles = new ArrayList<>();
 
-    //Crear getArticles para Delete
+    // Crear getArticles para Delete
     public List<Article> getArticles() {
         return articles;
     }

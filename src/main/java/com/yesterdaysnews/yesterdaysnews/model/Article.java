@@ -1,64 +1,52 @@
 package com.yesterdaysnews.yesterdaysnews.model;
 
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "articles")
-// Clase que representa un artículo
-
 public class Article {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "articles_id_seq")
+    @SequenceGenerator(name = "articles_id_seq", sequenceName = "articles_id_seq", allocationSize = 1)
     private int id;
 
-
     @NotBlank(message = "Title is required")
-    @Size(max=255, message = "Title must have max 255 characters")
+    @Size(max = 255, message = "Title must not exceed 255 characters")
     private String title;
 
     @NotBlank(message = "Content is required")
-    @Size(min=50, max=2000, message = "Content must have min 50 and max 2000 characters")
+    @Size(max = 5000, message = "Content must not exceed 5000 characters")
+    @Column(length = 5000)
     private String content;
 
-    @Column(name = "publicationDate")
-    private String publicationDate;
-
-
-    // usuario aparece aki
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonIgnoreProperties("articles")
     private User user;
-    // categoria aparece aki
-    // todavia falta categoria
 
-    // Constructor de article
-    // Plantilla - a adaptar a las necesidades del proyecto
-    public Article(int id, String title, String content, String publicationDate, User user) {
-        this.id = id;
+    @ManyToMany(mappedBy = "articles")
+    private Set<Category> categories = new HashSet<>();
+
+    // Constructor vacío requerido por JPA
+    public Article() {
+    }
+
+    // Constructor sin el campo 'id' para evitar problemas con la generación
+    // automática
+    public Article(String title, String content, User user) {
         this.title = title;
         this.content = content;
-        this.publicationDate = publicationDate;
         this.user = user;
     }
 
-    // Getters and setters
-    public Article() {
-        // A propósito!
-    }
-
+    // Getters y setters
     public int getId() {
         return this.id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getTitle() {
@@ -77,19 +65,30 @@ public class Article {
         this.content = content;
     }
 
-    public String getPublicationDate() {
-        return this.publicationDate;
-    }
-
-    public void setPublicationDate(String publicationDate) {
-        this.publicationDate = publicationDate;
-    }
-    
     public User getUser() {
-        return user;
+        return this.user;
     }
 
     public void setUser(User user) {
         this.user = user;
-}
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
+
+    // Métodos auxiliares para manejar la relación Many-to-Many con Category
+    public void addCategory(Category category) {
+        this.categories.add(category);
+        category.getArticles().add(this);
+    }
+
+    public void removeCategory(Category category) {
+        this.categories.remove(category);
+        category.getArticles().remove(this);
+    }
 }

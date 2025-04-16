@@ -6,11 +6,11 @@ package com.yesterdaysnews.yesterdaysnews.exception;
 public class CategoryException extends RuntimeException {
 
     public CategoryException(String message) {
-        super(message);
+        super("[CATEGORY ERROR] " + message);
     }
 
     public CategoryException(String message, Throwable cause) {
-        super(message, cause);
+        super("[CATEGORY ERROR] " + message, cause);
     }
 
     /**
@@ -18,7 +18,7 @@ public class CategoryException extends RuntimeException {
      */
     public static class CategoryNotFoundException extends CategoryException {
         public CategoryNotFoundException(String message) {
-            super(message);
+            super("[CATEGORY NOT FOUND] " + message);
         }
     }
 
@@ -27,7 +27,7 @@ public class CategoryException extends RuntimeException {
      */
     public static class CategoryAlreadyExistsException extends CategoryException {
         public CategoryAlreadyExistsException(String message) {
-            super(message);
+            super("[CATEGORY ALREADY EXISTS] " + message);
         }
     }
 
@@ -36,7 +36,7 @@ public class CategoryException extends RuntimeException {
      */
     public static class InvalidCategoryOperationException extends CategoryException {
         public InvalidCategoryOperationException(String message) {
-            super(message);
+            super("[INVALID CATEGORY OPERATION] " + message);
         }
     }
 }

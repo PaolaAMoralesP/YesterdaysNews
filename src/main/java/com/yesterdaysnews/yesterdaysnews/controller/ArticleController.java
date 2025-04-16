@@ -10,9 +10,6 @@ import com.yesterdaysnews.yesterdaysnews.service.ArticleService;
 import com.yesterdaysnews.yesterdaysnews.model.Article;
 
 import jakarta.validation.Valid;
-import java.util.Optional;
-// import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/v1/articles")
@@ -36,12 +33,8 @@ public class ArticleController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Article> findArticleById(@PathVariable int id) {
-        Optional<Article> article = articleService.getArticleById(id);
-        if (article.isPresent()) {
-            return new ResponseEntity<>(article.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        Article article = articleService.getArticleById(id);
+        return new ResponseEntity<>(article, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")

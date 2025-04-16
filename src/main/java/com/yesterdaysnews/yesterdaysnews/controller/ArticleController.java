@@ -32,10 +32,11 @@ public class ArticleController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Article> findArticleById(@PathVariable int id) {
-        Article article = articleService.getArticleById(id);
-        return new ResponseEntity<>(article, HttpStatus.OK);
-    }
+public ResponseEntity<Article> findArticleById(@PathVariable int id) {
+    return articleService.getArticleById(id)
+            .map(article -> new ResponseEntity<>(article, HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+}
 
     @PutMapping("/{id}")
     public ResponseEntity<Article> updateArticle(@PathVariable int id, @Valid @RequestBody Article updatedArticle) {

@@ -7,9 +7,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -82,24 +84,25 @@ public class ArticleControllerTest {
 
         // Assert
         assertEquals(200, response.getStatusCode().value()); // Verifica que el código de estado sea 200 OK
-        assertEquals(2, ((Iterable<?>) response.getBody()).spliterator().getExactSizeIfKnown()); // Verifica que se devuelvan 2 artículos
+        assertEquals(2, ((List<?>) response.getBody()).size()); // Verifica que se devuelvan 2 artículos
         verify(articleService, times(1)).getAllArticles(); // Verifica que el servicio fue llamado exactamente una vez
     }
+
 
     @Test
     void testFindArticleByIdNotFound() {
         // Arrange
         Integer articleId = 999;
-        when(articleService.getArticleById(articleId)).thenReturn(Optional.empty()); // Simulate article not found
-
+        when(articleService.getArticleById(articleId)).thenReturn(Optional.empty());
+    
         // Act
         ResponseEntity<Article> response = articleController.findArticleById(articleId);
-
+    
         // Assert
-        assertEquals(404, response.getStatusCode().value()); // Verify status code is 404 Not Found
-        verify(articleService, times(1)).getArticleById(articleId); // Verify service was called exactly once
+        assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatusCode().value(), "Should return 404 when article is not found");
+        verify(articleService, times(1)).getArticleById(articleId);
     }
-
+    
     @Test
     void testFindArticleById() {
         // Arrange
@@ -108,15 +111,15 @@ public class ArticleControllerTest {
         article.setId(articleId);
         article.setTitle("Test Article");
         article.setContent("This is a test article.");
-
-        when(articleService.getArticleById(articleId)).thenReturn(Optional.of(article)); // Simula el comportamiento del servicio
+    
+        when(articleService.getArticleById(articleId)).thenReturn(Optional.of(article));
         
         // Act
         ResponseEntity<Article> response = articleController.findArticleById(articleId);
-
+    
         // Assert
-        assertEquals(200, response.getStatusCode().value()); // Verifica que el código de estado sea 200 OK
-        assertEquals(article, response.getBody()); // Verifica que el cuerpo de la respuesta sea el artículo esperado
-        verify(articleService, times(1)).getArticleById(articleId); // Verifica que el servicio fue llamado exactamente una vez
+        assertEquals(HttpStatus.OK.value(), response.getStatusCode().value(), "Should return 200 when article is found");
+        assertEquals(article, response.getBody(), "Should return the found article");
+        verify(articleService, times(1)).getArticleById(articleId);
     }
 }

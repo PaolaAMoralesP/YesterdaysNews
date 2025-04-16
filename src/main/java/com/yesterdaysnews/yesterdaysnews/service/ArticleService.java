@@ -1,7 +1,6 @@
 package com.yesterdaysnews.yesterdaysnews.service;
 
 import com.yesterdaysnews.yesterdaysnews.exception.UserNotFoundException;
-import com.yesterdaysnews.yesterdaysnews.exception.ArticleNotFoundException;
 import com.yesterdaysnews.yesterdaysnews.model.Article;
 import com.yesterdaysnews.yesterdaysnews.model.User;
 import com.yesterdaysnews.yesterdaysnews.repository.ArticleRepository;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Optional; // aqui el import optional! 
 
 @Service
 public class ArticleService {
@@ -32,9 +32,9 @@ public class ArticleService {
      * @return The created article.
      * @throws UserNotFoundException If the user is not found.
      */
-    public Article createArticle(Article article, Integer id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User with ID " + id + " not found"));
+    public Article createArticle(Article article, Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User with ID " + userId + " not found"));
 
         article.setUser(user);
         return articleRepository.save(article);
@@ -53,12 +53,10 @@ public class ArticleService {
      * Retrieves an article by its ID.
      *
      * @param id The ID of the article.
-     * @return The article with the given ID.
-     * @throws ArticleNotFoundException If the article is not found.
+     * @return An Optional containing the article if found, or empty if not found. 
      */
-    public Article getArticleById(int id) {
-        return articleRepository.findById(id)
-                .orElseThrow(() -> new ArticleNotFoundException("Article with ID " + id + " not found"));
+    public Optional<Article> getArticleById(int id) {
+        return articleRepository.findById(id);
     }
 
     /**
@@ -70,17 +68,14 @@ public class ArticleService {
      * @throws ArticleNotFoundException If the article is not found.
      */
     public Article updateArticle(int id, Article updatedArticle) {
-        // Busca el artículo existente
-        Article existingArticle = articleRepository.findById(id)
-                .orElseThrow(() -> new ArticleNotFoundException("Article with ID " + id + " not found"));
-
-        // Actualiza los campos del artículo
-        existingArticle.setTitle(updatedArticle.getTitle());
-        existingArticle.setContent(updatedArticle.getContent());
-        existingArticle.setCategories(updatedArticle.getCategories());
-
-        // Guarda los cambios
-        return articleRepository.save(existingArticle);
+        return articleRepository.findById(id)
+                .map(existingArticle -> {
+                    existingArticle.setTitle(updatedArticle.getTitle());
+                    existingArticle.setContent(updatedArticle.getContent());
+                    existingArticle.setCategories(updatedArticle.getCategories());
+                    return articleRepository.save(existingArticle);
+                })
+                .orElseThrow(() -> new RuntimeException("Article with ID " + id + " not found"));
     }
 
     /**

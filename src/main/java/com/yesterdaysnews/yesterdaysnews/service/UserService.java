@@ -21,6 +21,9 @@ public class UserService {
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    // public User createUser(User user) {
+    //     userRepository.save(user);
+    //     return user;
     }
 
     public Boolean deleteUserById(Integer id) {
@@ -33,3 +36,11 @@ public class UserService {
     }
 }
 
+//     public boolean deleteUserById(Integer id) {
+//         if (!userRepository.existsById(id)) {
+//             return false;
+//         }
+//         userRepository.deleteById(id);
+//         return true;
+//     }
+// }

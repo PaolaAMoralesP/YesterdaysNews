@@ -25,19 +25,23 @@ public class ArticleController {
     }
 
     @PostMapping
-    public ResponseEntity<Article> createArticle(@Valid @RequestBody Article article, @RequestParam Integer userId) {
+    public ResponseEntity<Article> addArticle(@Valid @RequestBody Article article, @RequestParam Integer userId) {
         return new ResponseEntity<>(articleService.createArticle(article, userId), HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<Article>> getAllArticles() {
+    public ResponseEntity<List<Article>> listAllArticles() {
         return new ResponseEntity<>(articleService.getAllArticles(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Article> getArticleById(@PathVariable int id) {
-        Article article = articleService.getArticleById(id);
-        return new ResponseEntity<>(article, HttpStatus.OK);
+    public ResponseEntity<Article> findArticleById(@PathVariable int id) {
+        Optional<Article> article = articleService.getArticleById(id);
+        if (article.isPresent()) {
+            return new ResponseEntity<>(article.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping("/{id}")
@@ -49,7 +53,7 @@ public class ArticleController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteArticle(@PathVariable int id) {
+    public ResponseEntity<String> removeArticle(@PathVariable int id) {
         boolean deleted = articleService.deleteArticleById(id);
         if (!deleted) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)

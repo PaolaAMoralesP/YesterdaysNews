@@ -32,9 +32,9 @@ public class ArticleService {
      * @return The created article.
      * @throws UserNotFoundException If the user is not found.
      */
-    public Article createArticle(Article article, Integer userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("User with ID " + userId + " not found"));
+    public Article createArticle(Article article, Integer id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User with ID " + id + " not found"));
 
         article.setUser(user);
         return articleRepository.save(article);

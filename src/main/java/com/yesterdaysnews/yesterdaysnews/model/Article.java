@@ -1,5 +1,7 @@
 package com.yesterdaysnews.yesterdaysnews.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -21,8 +23,8 @@ public class Article {
     private String title;
 
     @NotBlank(message = "Content is required")
-    @Size(max = 5000, message = "Content must not exceed 5000 characters")
-    @Column(length = 5000)
+    @Size(max = 2000, message = "Content must not exceed 2000 characters")
+    @Column(length = 2000)
     private String content;
 
     @Column(name = "publicationDate")
@@ -30,6 +32,7 @@ public class Article {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnoreProperties("articles")
     private User user;
 
     @ManyToMany(mappedBy = "articles")
@@ -53,6 +56,10 @@ public class Article {
     // Getters y setters
     public int getId() {
         return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {

@@ -51,11 +51,11 @@ public class UserControllerTest {
         when(userService.deleteUserById(userId)).thenReturn(true); // Simula el comportamiento del servicio
 
         // Act
-        ResponseEntity<Object> response = userController.removeUserById(userId);
+        ResponseEntity<Object> response = userController.UserById(userId);
 
         // Assert
         assertEquals(200, response.getStatusCode().value()); // Verifica que el código de estado sea 200 OK
-        assertEquals(response.getBody(), "User " + userId + " deleted successfully"); // Verifica que el cuerpo de la respuesta sea el mensaje esperado
+        assertEquals(response.getBody(), "User and related articles have been deleted"); // Verifica que el cuerpo de la respuesta sea el mensaje esperado
         verify(userService, times(1)).deleteUserById(userId); // Verifica que el servicio fue llamado exactamente una vez
         }
 }

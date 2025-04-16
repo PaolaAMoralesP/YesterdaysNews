@@ -1,5 +1,6 @@
 package com.yesterdaysnews.yesterdaysnews.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,12 +25,17 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> createUser(@Valid @RequestBody User user) {
-        return userService.createUser(user);
+    public ResponseEntity<User> addUser(@Valid @RequestBody User user) {
+        return new ResponseEntity<> (userService.createUser(user), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteUserById(@PathVariable Integer id) {
-        return userService.deleteUserById(id);
+    public ResponseEntity<String> removeUserById(@PathVariable Integer id) {
+        boolean deleted = userService.deleteUserById(id);
+        if (!deleted) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                                 .body("No user found with ID " + id);
+        }
+        return ResponseEntity.ok("User " + id + " deleted successfully");
     }
 }

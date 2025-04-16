@@ -1,8 +1,11 @@
 package com.yesterdaysnews.yesterdaysnews.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,10 +17,11 @@ import com.yesterdaysnews.yesterdaysnews.model.User;
 
 import jakarta.validation.Valid;
 
+
 @RestController
 @RequestMapping("/api/v1/users")
-
 public class UserController {
+
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -26,16 +30,32 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> addUser(@Valid @RequestBody User user) {
-        return new ResponseEntity<> (userService.createUser(user), HttpStatus.CREATED);
+        User createdUser = new ResponseEntity<> (userService.createUser(user), HttpStatus.CREATED);
+        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = userService.getAllUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> removeUserById(@PathVariable Integer id) {
-        boolean deleted = userService.deleteUserById(id);
-        if (!deleted) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                                 .body("No user found with ID " + id);
+    public ResponseEntity<Object> deleteUserById(@PathVariable Integer id) {
+        Boolean hadArticles = userService.deleteUserById(id);
+        if (hadArticles == null) {
+            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
         }
-        return ResponseEntity.ok("User " + id + " deleted successfully");
+        String message = hadArticles
+            ? "User and related articles have been deleted"
+            : "User deleted correctly";
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    // public ResponseEntity<String> removeUserById(@PathVariable Integer id) {
+    //     boolean deleted = userService.deleteUserById(id);
+    //     if (!deleted) {
+    //         return ResponseEntity.status(HttpStatus.NOT_FOUND)
+    //                              .body("No user found with ID " + id);
+    //     }
+    //     return ResponseEntity.ok("User " + id + " deleted successfully");
     }
 }

@@ -42,6 +42,19 @@
             return articleRepository.findById(id);
         }
 
+        public Article updateArticle(Article updatedArticle) {
+            int articleId = updatedArticle.getId();
+            Optional<Article> existingArticle = articleRepository.findById(articleId);
+    
+            if (existingArticle.isPresent()) {
+                Article articleToUpdate = existingArticle.get();
+                articleToUpdate.setContent(updatedArticle.getContent());
+    
+                return articleRepository.save(articleToUpdate);
+            } else {
+                return null; // puede cambiarse a una Excepcion
+            }
+        }
         public boolean deleteArticleById(int id) {
             if (!articleRepository.existsById(id)) {
                 return false;

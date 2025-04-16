@@ -27,9 +27,10 @@ public class Category {
     public Category() {
     }
 
-    public Category(int id, String type) {
+    public Category(int id, String type, Article article) {
         this.id = id;
         this.type = type;
+        this.articles.add(article);
     }
 
     public int getId() {

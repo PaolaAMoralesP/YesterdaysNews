@@ -41,12 +41,13 @@ public class Article {
 
     // Constructor sin el campo 'id' para evitar problemas con la generación
     // automática
-    public Article(int id, String title, String content, String publicationDate, User user) {
+    public Article(int id, String title, String content, String publicationDate, User user, Category category) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.publicationDate = publicationDate;
         this.user = user;
+        this.categories.add(category);
     }
 
     // Getters y setters

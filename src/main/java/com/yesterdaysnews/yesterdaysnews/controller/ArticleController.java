@@ -1,4 +1,3 @@
-
 package com.yesterdaysnews.yesterdaysnews.controller;
 
 import java.util.List;
@@ -11,10 +10,6 @@ import com.yesterdaysnews.yesterdaysnews.service.ArticleService;
 import com.yesterdaysnews.yesterdaysnews.model.Article;
 
 import jakarta.validation.Valid;
-import java.util.Optional;
-// import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.RequestParam;
-
 
 @RestController
 @RequestMapping("/api/v1/articles")
@@ -28,7 +23,7 @@ public class ArticleController {
 
     @PostMapping
     public ResponseEntity<Article> addArticle(@Valid @RequestBody Article article, @RequestParam Integer userId) {
-        return new ResponseEntity<> (articleService.createArticle(article, userId), HttpStatus.CREATED);
+        return new ResponseEntity<>(articleService.createArticle(article, userId), HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -38,25 +33,16 @@ public class ArticleController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Article> findArticleById(@PathVariable int id) {
-        Optional<Article> article = articleService.getArticleById(id);
-        if (article.isPresent()) {
-            return new ResponseEntity<>(article.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        Article article = articleService.getArticleById(id);
+        return new ResponseEntity<>(article, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Article> updateArticle(@PathVariable int id, @Valid @RequestBody Article updatedArticle) {
-        Optional<Article> existingArticle = articleService.getArticleById(id);
+        // Llama directamente al servicio para actualizar el artículo
+        Article updated = articleService.updateArticle(id, updatedArticle);
 
-        if (existingArticle.isPresent()) {
-            updatedArticle.setId(id);
-            Article updated = articleService.updateArticle(updatedArticle);
-            return new ResponseEntity<>(updated, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(updated, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
@@ -64,10 +50,8 @@ public class ArticleController {
         boolean deleted = articleService.deleteArticleById(id);
         if (!deleted) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                                 .body("No article found with ID " + id);
+                    .body("No article found with ID " + id);
         }
         return ResponseEntity.ok("Article " + id + " deleted successfully");
     }
 }
-
-

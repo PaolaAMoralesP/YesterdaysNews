@@ -1,13 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=h1, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Instructions - Yesterdays News</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    <h1>
-        HOLIII
-    </h1>
+    <header>
+        <h1>Welcome to Yesterdays News API</h1>
+    </header>
+    <div class="container">
+        <!-- Category Section -->
+        <section id="category">
+            <h2>Category Endpoints</h2>
+            <ul>
+                <li>
+                    <strong>Get All Categories:</strong>
+                    <br>Send a <code>GET</code> request to <code>/api/v1/categories</code>.
+                </li>
+                <li>
+                    <strong>Create a Category:</strong>
+                    <br>Send a <code>POST</code> request to <code>/api/v1/categories</code> with a JSON body:
+                    <pre>
+{
+    "type": "Category Name"
+}
+                    </pre>
+                </li>
+                <li>
+                    <strong>Update a Category:</strong>
+                    <br>Send a <code>PUT</code> request to <code>/api/v1/categories/{id}</code> with a JSON body:
+                    <pre>
+{
+    "type": "Updated Category Name"
+}
+                    </pre>
+                </li>
+                <li>
+                    <strong>Delete a Category:</strong>
+                    <br>Send a <code>DELETE</code> request to <code>/api/v1/categories/{id}</code>.
+                </li>
+            </ul>
+        </section>
+
+        <!-- User Section -->
+        <section id="user">
+            <h2>User Endpoints</h2>
+            <ul>
+                <li>
+                    <strong>Get All Users:</strong>
+                    <br>Send a <code>GET</code> request to <code>/api/v1/users</code>.
+                </li>
+                <li>
+                    <strong>Create a User:</strong>
+                    <br>Send a <code>POST</code> request to <code>/api/v1/users</code> with a JSON body:
+                    <pre>
+{
+    "username": "JohnDoe",
+    "email": "johndoe@example.com"
+}
+                    </pre>
+                </li>
+                <li>
+                    <strong>Update a User:</strong>
+                    <br>Send a <code>PUT</code> request to <code>/api/v1/users/{id}</code> with a JSON body:
+                    <pre>
+{
+    "username": "UpdatedUsername",
+    "email": "updatedemail@example.com"
+}
+                    </pre>
+                </li>
+                <li>
+                    <strong>Delete a User:</strong>
+                    <br>Send a <code>DELETE</code> request to <code>/api/v1/users/{id}</code>.
+                </li>
+            </ul>
+        </section>
+
+        <!-- Article Section -->
+        <section id="article">
+            <h2>Article Endpoints</h2>
+            <ul>
+                <li>
+                    <strong>Get All Articles:</strong>
+                    <br>Send a <code>GET</code> request to <code>/api/v1/articles</code>.
+                </li>
+                <li>
+                    <strong>Create an Article:</strong>
+                    <br>Send a <code>POST</code> request to <code>/api/v1/articles</code> with a JSON body:
+                    <pre>
+{
+    "title": "Article Title",
+    "content": "This is the content of the article.",
+    "publicationDate": "2025-04-15",
+    "userId": 1,
+    "categoryIds": [1, 2]
+}
+                    </pre>
+                </li>
+                <li>
+                    <strong>Update an Article:</strong>
+                    <br>Send a <code>PUT</code> request to <code>/api/v1/articles/{id}</code> with a JSON body:
+                    <pre>
+{
+    "title": "Updated Title",
+    "content": "Updated content of the article.",
+    "publicationDate": "2025-04-16",
+    "userId": 1,
+    "categoryIds": [1, 3]
+}
+                    </pre>
+                </li>
+                <li>
+                    <strong>Delete an Article:</strong>
+                    <br>Send a <code>DELETE</code> request to <code>/api/v1/articles/{id}</code>.
+                </li>
+            </ul>
+        </section>
+    </div>
+    <footer>
+        &copy; 2025 Yesterdays News. All rights reserved.
+    </footer>
 </body>
+
 </html>

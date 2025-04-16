@@ -17,7 +17,6 @@ import com.yesterdaysnews.yesterdaysnews.model.User;
 
 import jakarta.validation.Valid;
 
-
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
@@ -27,6 +26,7 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
+
     @PostMapping
     public ResponseEntity<User> addUser(@Valid @RequestBody User user) {
         User createdUser = userService.createUser(user);
@@ -46,16 +46,16 @@ public class UserController {
             return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
         }
         String message = hadArticles
-            ? "User and related articles have been deleted"
-            : "User deleted correctly";
+                ? "User and related articles have been deleted"
+                : "User deleted correctly";
         return new ResponseEntity<>(message, HttpStatus.OK);
 
-    // public ResponseEntity<String> removeUserById(@PathVariable Integer id) {
-    //     boolean deleted = userService.deleteUserById(id);
-    //     if (!deleted) {
-    //         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-    //                              .body("No user found with ID " + id);
-    //     }
-    //     return ResponseEntity.ok("User " + id + " deleted successfully");
+        // public ResponseEntity<String> removeUserById(@PathVariable Integer id) {
+        // boolean deleted = userService.deleteUserById(id);
+        // if (!deleted) {
+        // return ResponseEntity.status(HttpStatus.NOT_FOUND)
+        // .body("No user found with ID " + id);
+        // }
+        // return ResponseEntity.ok("User " + id + " deleted successfully");
     }
 }

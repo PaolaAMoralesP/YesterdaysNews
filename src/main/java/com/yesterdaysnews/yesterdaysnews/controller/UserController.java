@@ -27,10 +27,9 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
     @PostMapping
     public ResponseEntity<User> addUser(@Valid @RequestBody User user) {
-        User createdUser = new ResponseEntity<> (userService.createUser(user), HttpStatus.CREATED);
+        User createdUser = userService.createUser(user);
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
@@ -41,7 +40,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteUserById(@PathVariable Integer id) {
+    public ResponseEntity<Object> UserById(@PathVariable Integer id) {
         Boolean hadArticles = userService.deleteUserById(id);
         if (hadArticles == null) {
             return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
@@ -50,6 +49,7 @@ public class UserController {
             ? "User and related articles have been deleted"
             : "User deleted correctly";
         return new ResponseEntity<>(message, HttpStatus.OK);
+
     // public ResponseEntity<String> removeUserById(@PathVariable Integer id) {
     //     boolean deleted = userService.deleteUserById(id);
     //     if (!deleted) {

@@ -98,7 +98,7 @@ The project includes integration tests for the controllers. These tests are usua
 
 ```bash
 ./mvnw test
-
+```
 
 ---
 

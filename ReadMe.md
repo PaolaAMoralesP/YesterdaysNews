@@ -121,7 +121,7 @@ The project includes integration tests for the controllers. These tests are usua
     <td align="center" style="border: none;">
       <br><b>Mariuxi Olaya</b>
       <br>
-      <a href="hhttp://www.linkedin.com/in/molaya">LinkedIn</a> |
+      <a href="https://www.linkedin.com/in/molaya">LinkedIn</a> |
       <a href="https://github.com/catmaluci/">GitHub</a>
     </td>
     <td align="center" style="border: none;">

@@ -4,7 +4,6 @@ import com.yesterdaysnews.yesterdaysnews.model.Category;
 import com.yesterdaysnews.yesterdaysnews.service.CategoryService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.Copy;
 import org.mockito.*;
 import org.springframework.http.ResponseEntity;
 

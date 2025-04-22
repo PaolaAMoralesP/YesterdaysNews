@@ -38,12 +38,9 @@ public class Article {
     @ManyToMany(mappedBy = "articles")
     private Set<Category> categories = new HashSet<>();
 
-    // Constructor vacío requerido por JPA
     public Article() {
     }
 
-    // Constructor sin el campo 'id' para evitar problemas con la generación
-    // automática
     public Article(int id, String title, String content, String publicationDate, User user, Category category) {
         this.id = id;
         this.title = title;
@@ -53,7 +50,6 @@ public class Article {
         this.categories.add(category);
     }
 
-    // Getters y setters
     public int getId() {
         return this.id;
     }
@@ -102,7 +98,6 @@ public class Article {
         this.categories = categories;
     }
 
-    // Métodos auxiliares para manejar la relación Many-to-Many con Category
     public void addCategory(Category category) {
         this.categories.add(category);
         category.getArticles().add(this);

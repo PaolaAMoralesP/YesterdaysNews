@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-// import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 
@@ -37,25 +36,20 @@ public class User {
     @Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}", message = "Must have email address format")
     private String emailAddress;
 
-    // Preparar aquí la relación con Article
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties("user")
     private List<Article> articles = new ArrayList<>();
 
-    // Crear getArticles para Delete
     public List<Article> getArticles() {
         return articles;
     }
 
-    // Plantilla - a adaptar a las necesidades del proyecto
     public User(int id, String username, String emailAddress) {
         this.id = id;
         this.username = username;
         this.emailAddress = emailAddress;
     }
 
-    // Spring Boot autogenera este constructor por defecto utilizando los getters y
-    // setters en @RequestBody
     public User() {
 
     }

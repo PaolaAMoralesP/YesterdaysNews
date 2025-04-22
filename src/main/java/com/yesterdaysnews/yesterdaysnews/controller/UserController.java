@@ -49,13 +49,5 @@ public class UserController {
                 ? "User and related articles have been deleted"
                 : "User deleted correctly";
         return new ResponseEntity<>(message, HttpStatus.OK);
-
-        // public ResponseEntity<String> removeUserById(@PathVariable Integer id) {
-        // boolean deleted = userService.deleteUserById(id);
-        // if (!deleted) {
-        // return ResponseEntity.status(HttpStatus.NOT_FOUND)
-        // .body("No user found with ID " + id);
-        // }
-        // return ResponseEntity.ok("User " + id + " deleted successfully");
     }
 }

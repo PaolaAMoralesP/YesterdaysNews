@@ -27,6 +27,4 @@ public class GlobalExceptionHandler {
             CategoryException.InvalidCategoryOperationException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
-
-    // Puedes agregar más manejadores de excepciones aquí si es necesario
 }

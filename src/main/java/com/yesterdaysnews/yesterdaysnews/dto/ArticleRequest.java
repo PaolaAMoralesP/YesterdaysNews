@@ -7,7 +7,6 @@ public class ArticleRequest {
     private Article article;
     private Integer userId;
 
-    // Getters y setters
     public Article getArticle() {
         return article;
     }

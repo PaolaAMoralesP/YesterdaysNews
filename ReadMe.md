@@ -10,27 +10,27 @@ This project involves building a REST API developed with Java Spring Boot and Ma
 
 ## 🎯 Objectives
 
-* Develop a REST API for managing articles of a digital newspaper.
-* Implement a 3-layer MVC (Model-View-Controller) architecture.
-* Establish a connection with a PostgreSQL database.
-* Create endpoints for CRUD (Create, Read, Update, Delete) operations on articles.
-* Implement user creation.
-* Define relationships between user and article entities.
-* Validate input data according to the specified requirements.
-* Perform integration tests of the controllers using Spring Boot Test.
+- Develop a REST API for managing articles of a digital newspaper.
+- Implement a 3-layer MVC (Model-View-Controller) architecture.
+- Establish a connection with a PostgreSQL database.
+- Create endpoints for CRUD (Create, Read, Update, Delete) operations on articles.
+- Implement user creation.
+- Define relationships between user and article entities.
+- Validate input data according to the specified requirements.
+- Perform integration tests of the controllers using Spring Boot Test.
 
 ---
 
 ## 🛠️ Technologies and Tools
 
-* **Programming Language:** Java 21
-* **Backend Framework:** Spring Boot 3.4.4
-* **Spring Data:** JPA
-* **Database:** PostgreSQL / H2 
-* **IDE:** Visual Studio Code
-* **Project Management:** Trello
-* **Version Control:** Git - GitHub
-* **API Client:** Postman
+- **Programming Language:** Java 21
+- **Backend Framework:** Spring Boot 3.4.4
+- **Spring Data:** JPA
+- **Database:** PostgreSQL / H2
+- **IDE:** Visual Studio Code
+- **Project Management:** Trello
+- **Version Control:** Git - GitHub
+- **API Client:** Postman
 
 ---
 
@@ -38,17 +38,17 @@ This project involves building a REST API developed with Java Spring Boot and Ma
 
 Before running the application, ensure you have the following installed:
 
-* **Java Development Kit (JDK):** Version compatible with Spring Boot.
-* **Maven:** For dependency management and project building.
-* **PostgreSQL:** Running PostgreSQL database server.
-* **pgAdmin:** (Or any PostgreSQL client) for database administration.
-* **Git:** For version control management.
-* **Visual Studio Code:** (Or your preferred IDE) with necessary plugins for Java and Spring Boot.
-* **Postman:** For testing the API endpoints.
+- **Java Development Kit (JDK):** Version compatible with Spring Boot.
+- **Maven:** For dependency management and project building.
+- **PostgreSQL:** Running PostgreSQL database server.
+- **pgAdmin:** (Or any PostgreSQL client) for database administration.
+- **Git:** For version control management.
+- **Visual Studio Code:** (Or your preferred IDE) with necessary plugins for Java and Spring Boot.
+- **Postman:** For testing the API endpoints.
 
 ---
 
-##  📂Database Configuration
+## 📂Database Configuration
 
 1.  Create a database named (for example) `yesterdaynews` on your PostgreSQL server using pgAdmin or the command line.
 2.  Configure the environment variables for the database connection in a `.env` file at the root of the project. This file should contain the following variables:
@@ -88,7 +88,7 @@ Before running the application, ensure you have the following installed:
 
 ## 🚀 API Endpoints
 
-Once the application is running, you can interact with the following endpoints using Postman - read Postman read.me
+Once the application is running, you can interact with the following endpoints using Postman - read index.html
 
 ---
 

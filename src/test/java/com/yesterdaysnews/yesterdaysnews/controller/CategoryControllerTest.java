@@ -30,7 +30,7 @@ public class CategoryControllerTest {
     
     @Test
     void testCreateCategory() {
-        // Arrange
+        
         Category inputCategory = new Category();
         inputCategory.setType("Technology");
     
@@ -40,10 +40,10 @@ public class CategoryControllerTest {
     
         when(categoryService.create(inputCategory)).thenReturn(createdCategory);
     
-        // Act
+        
         ResponseEntity<Category> response = categoryController.createCategory(inputCategory);
     
-        // Assert
+        
         assertEquals(201, response.getStatusCode().value());
         assertEquals(createdCategory.getType(), response.getBody().getType());
         assertEquals(createdCategory.getId(), response.getBody().getId());
@@ -52,14 +52,14 @@ public class CategoryControllerTest {
 
     @Test
     void testDeleteCategoryById() {
-        // Arrange
+        
         int idToDelete = 1;
         doNothing().when(categoryService).deleteById(idToDelete);
 
-        // Act
+        
         ResponseEntity<Void> response = categoryController.deleteCategoryById(idToDelete);
 
-        // Assert
+        
         assertEquals(204, response.getStatusCode().value());
         assertNull(response.getBody()); // ResponseEntity.noContent() returns null body
         verify(categoryService, times(1)).deleteById(idToDelete);
@@ -67,7 +67,7 @@ public class CategoryControllerTest {
 
     @Test
     void testGetAllCategories() {
-         // Arrange
+         
     Category tech = new Category();
     tech.setType("Technology");
 
@@ -77,10 +77,10 @@ public class CategoryControllerTest {
     List<Category> categories = Arrays.asList(tech, health);
     when(categoryService.getAll()).thenReturn(categories);
 
-    // Act
+    
     ResponseEntity<List<Category>> response = categoryController.getAllCategories();
 
-    // Assert
+    
     assertEquals(200, response.getStatusCode().value());
     assertNotNull(response.getBody());
     assertEquals(2, response.getBody().size());
@@ -91,17 +91,17 @@ public class CategoryControllerTest {
 
     @Test
     void testGetCategoryById() {
-    // Arrange
+    
     int id = 1;
     Category category = new Category();
     category.setType("Lifestyle");
 
     when(categoryService.getById(id)).thenReturn(category);
 
-    // Act
+    
     ResponseEntity<Category> response = categoryController.getCategoryById(id);
 
-    // Assert
+    
     assertEquals(200, response.getStatusCode().value());
     assertNotNull(response.getBody());
     assertEquals("Lifestyle", response.getBody().getType());
@@ -111,7 +111,7 @@ public class CategoryControllerTest {
 
     @Test
     void testUpdateCategory() {
-    // Arrange
+    
     int id = 1;
     Category inputCategory = new Category();
     inputCategory.setType("Technology");
@@ -121,10 +121,10 @@ public class CategoryControllerTest {
 
     when(categoryService.update(id, inputCategory)).thenReturn(updatedCategory);
 
-    // Act
+    
     ResponseEntity<Category> response = categoryController.updateCategory(id, inputCategory);
 
-    // Assert
+    
     assertEquals(200, response.getStatusCode().value());
     assertNotNull(response.getBody());
     assertEquals("Technology", response.getBody().getType());

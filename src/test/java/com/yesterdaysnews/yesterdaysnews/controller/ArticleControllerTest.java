@@ -27,7 +27,7 @@ public class ArticleControllerTest {
 
     @Test
     void testAddArticle() {
-        // Arrange
+        
         Article article = new Article();
         article.setTitle("Test Article");
         article.setContent("This is a test article.");
@@ -36,10 +36,10 @@ public class ArticleControllerTest {
 
         when(articleService.createArticle(article, userId)).thenReturn(article); 
 
-        // Act
+        
         ResponseEntity<Article> response = articleController.addArticle(article, userId);
 
-        // Assert
+    
         assertEquals(201, response.getStatusCode().value()); 
         assertEquals(article, response.getBody()); 
         verify(articleService, times(1)).createArticle(article, userId);
@@ -47,15 +47,15 @@ public class ArticleControllerTest {
 
     @Test
     void testRemoveArticle() {
-        // Arrange
+        
         Integer articleId = 1;
 
         when(articleService.deleteArticleById(articleId)).thenReturn(true);
 
-        // Act
+        
         ResponseEntity<String> response = articleController.removeArticle(articleId);
 
-        // Assert
+        
         assertEquals(200, response.getStatusCode().value()); 
         assertEquals(response.getBody(), "Article 1 deleted successfully"); 
         verify(articleService, times(1)).deleteArticleById(articleId); 

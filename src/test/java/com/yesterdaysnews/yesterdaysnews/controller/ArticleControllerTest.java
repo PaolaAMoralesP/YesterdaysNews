@@ -10,7 +10,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -93,7 +92,7 @@ public class ArticleControllerTest {
         article.setTitle("Test Article");
         article.setContent("This is a test article.");
 
-        when(articleService.getArticleById(articleId)).thenReturn(Optional.of(article)); 
+        when(articleService.getArticleById(articleId)).thenReturn(article); 
 
         // Act
         ResponseEntity<Article> response = articleController.findArticleById(articleId);
